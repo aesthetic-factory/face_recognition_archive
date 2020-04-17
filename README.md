@@ -37,3 +37,14 @@ pip install Pillow
 ```bash
 python db_tool.py --cmd 'clean_db'
 ```
+
+### Database tools
+
+- A set of commands to access or update data in database
+
+```bash
+python db_tool.py --cmd 'summary'
+```
+```bash
+python db_tool.py --cmd 'status'
+```
