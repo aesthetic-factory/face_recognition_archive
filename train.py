@@ -1,12 +1,13 @@
 import face_recognition
 from multiprocessing import Pool
 from database import insert_descriptor, insert_label
-from util import loadImageEncoding, getFolders, TRAIN_DIR
+from util import loadImageEncoding, getFolders
+from config import DS_TRAIN_DIR
 
 
 def train_batch(label):
     print(f"Training '{label}'")
-    data_dir = TRAIN_DIR + label + "/"
+    data_dir = DS_TRAIN_DIR + label + "/"
     insert_label(label)
     imgs_enc = loadImageEncoding(data_dir)
     for img_enc in imgs_enc:
@@ -19,7 +20,7 @@ def train_batch(label):
 # ========== main ==========
 if __name__ == '__main__':
     # Get dataset folders
-    train_dataset_folders = getFolders(TRAIN_DIR)
+    train_dataset_folders = getFolders(DS_TRAIN_DIR)
 
     face_encoding_library = []
     for label in train_dataset_folders:

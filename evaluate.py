@@ -1,5 +1,6 @@
 import face_recognition
-from util import loadImageEncoding, getFolders, fetch_face_library, predict, EVA_DIR
+from util import loadImageEncoding, getFolders, fetch_face_library, predict
+from config import DS_EVA_DIR
 from database import fetch_evaluation_descriptors
 import argparse
 
@@ -15,9 +16,9 @@ if __name__ == '__main__':
     library = fetch_face_library()
     if local:
         # Get dataset folders
-        eva_dataset_folders = getFolders(EVA_DIR)
+        eva_dataset_folders = getFolders(DS_EVA_DIR)
         for label in eva_dataset_folders:
-            data_dir = EVA_DIR + label + "/"
+            data_dir = DS_EVA_DIR + label + "/"
             imgs_enc = loadImageEncoding(data_dir)
             print(f"-----{label}-----")
             for img_enc in imgs_enc:

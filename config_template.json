@@ -5,5 +5,8 @@
     "user": "user",
     "password": "password",
     "database": "database_name"
+  },
+  "directories": {
+    "dataset": "C:/Dev/Dataset/"
   }
 }

@@ -7,9 +7,6 @@ from os.path import basename
 from database import fetch_descriptors, fetch_labels, fetch_valid_labels
 
 # Constant
-DATASET_DIR = "C:/Dev/Dataset/"
-TRAIN_DIR = DATASET_DIR + "train/"
-EVA_DIR = DATASET_DIR + "evaluate/"
 ACCEPT_SCORE = 0.63
 TOL_DISTANCE = 0.45  # 0.44
 IDEAL_DISTANCE = 0.36  # 0.33
@@ -100,10 +97,11 @@ def predict(img_enc, library):
             # results = face_recognition.compare_faces(
             #     label["descriptors"], face, TOL_DISTANCE=TOL_DISTANCE)
 
-            # distances = face_recognition.face_distance(
-            #     label["descriptors"], face)
+            distances = face_recognition.face_distance(
+                label["descriptors"], face)
 
-            distances = face_distance(label["descriptors"], face)
+            # customized weighted distance
+            # distances = face_distance(label["descriptors"], face)
 
             matched = []
             matched_distances = []

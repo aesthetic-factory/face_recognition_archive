@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 from PIL import ImageFont, ImageDraw, Image
 from multiprocessing import Pool, cpu_count
-from util import loadImageEncoding, getFolders, fetch_face_library, predict, EVA_DIR
+from util import loadImageEncoding, getFolders, fetch_face_library, predict
 
 # Constant
 MAX_PROCESS = 12  # cpu_count()
