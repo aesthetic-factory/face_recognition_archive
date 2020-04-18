@@ -69,8 +69,8 @@ def remove_label(label):
 
 def fetch_evaluation_descriptors():
     setup_connection()
-    group_id_start = random.randrange(0, 80)
-    group_id_end = group_id_start + 20
+    group_id_start = random.randrange(0, 75)
+    group_id_end = group_id_start + 25
     columns = ""
     for x in range(128):
         columns += f", b.p{x}"

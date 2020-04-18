@@ -6,6 +6,10 @@
     "password": "password",
     "database": "database_name"
   },
+  "performance":{
+    "max_process":-1,
+    "jitters":1
+  },
   "directories": {
     "dataset": "C:/Dev/Dataset/"
   }

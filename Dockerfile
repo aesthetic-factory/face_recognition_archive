@@ -1,4 +1,4 @@
-FROM python:3.8.2-buster
+FROM python:3.8.2-slim-buster
 LABEL maintainer="tragedyhk <alex99hk@gmail.com>"
 
 # Install basic CLI tools etc.
@@ -34,6 +34,10 @@ CMD ["/bin/bash"]
 
 # Stop container
 # docker container stop faceRecognition
+
+# Restart and attach container
+# docker restart faceRecognition
+# docker attach faceRecognition
 
 # Remove docker
 # docker container rm faceRecognition

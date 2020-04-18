@@ -2,17 +2,13 @@ import face_recognition
 import glob
 import math
 import numpy as np
-from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
 from os.path import basename
 from database import fetch_descriptors, fetch_labels, fetch_valid_labels
+from config import MAX_PROCESS, JITTERS
 
 # Constant
-ACCEPT_SCORE = 0.63
-TOL_DISTANCE = 0.45  # 0.44
-IDEAL_DISTANCE = 0.36  # 0.33
-MAX_PROCESS = 14  # cpu_count()
-JITTERS = 25
-
+TOL_DISTANCE = 0.40  # 0.44
 
 def getImagePath(folderPath):
     types = ('*.png', '*.jpg', '*.jiff')  # the tuple of file types
@@ -35,8 +31,6 @@ def imageProcessor(img_path):
         image = face_recognition.load_image_file(img_path)
 
         # Get the face encodings for each face in each image file
-        # Since there could be more than one face in each image, it returns a list of encodings.
-        # But since I know each image only has one face, I only care about the first encoding in each image, so I grab index 0.
         face_encodings = face_recognition.face_encodings(
             image, num_jitters=JITTERS, model="large")
     except Exception as e:
@@ -97,11 +91,11 @@ def predict(img_enc, library):
             # results = face_recognition.compare_faces(
             #     label["descriptors"], face, TOL_DISTANCE=TOL_DISTANCE)
 
-            distances = face_recognition.face_distance(
-                label["descriptors"], face)
+            # distances = face_recognition.face_distance(
+            #     label["descriptors"], face)
 
             # customized weighted distance
-            # distances = face_distance(label["descriptors"], face)
+            distances = face_distance(label["descriptors"], face)
 
             matched = []
             matched_distances = []
@@ -121,27 +115,6 @@ def predict(img_enc, library):
                 predict_names.append(
                     {'name': name,  "distance": real_avg_dist})
                 found = True
-
-            # match = matched.count(True)
-            # total = len(matched)
-            # upbound = 5
-            # if total > 10 and total <= 15:
-            #     upbound = 10
-            # elif total > 15 and total <= 20:
-            #     upbound = 15
-            # else:
-            #     upbound = 20
-            # score = np.amin([upbound, match]) / upbound
-            # penalty = (total - match) / total
-            # compensated_score = score - penalty * \
-            #     0.7 - (real_avg_dist-IDEAL_DISTANCE)*4
-
-            # if compensated_score > ACCEPT_SCORE:
-            #     predict_names.append(
-            #         {'name': name, 'score': compensated_score, "distance": real_avg_dist, 'match_distance': avg_dist})
-            #     found = True
-                # print(
-                #     f"{name}: {compensated_score}. score:{score} penalty:{penalty} avg_dist:{avg_dist}")
 
         if not found:
             predict_names.append(
