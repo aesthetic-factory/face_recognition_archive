@@ -8,7 +8,8 @@ from database import fetch_descriptors, fetch_labels, fetch_valid_labels
 from config import MAX_PROCESS, JITTERS
 
 # Constant
-TOL_DISTANCE = 0.40  # 0.44
+TOL_DISTANCE = 0.5  # 0.44
+
 
 def getImagePath(folderPath):
     types = ('*.png', '*.jpg', '*.jiff')  # the tuple of file types
@@ -87,7 +88,7 @@ def predict(img_enc, library):
         found = False
         predict_names = []
         for label in library:
-
+            name = label["name"]
             # results = face_recognition.compare_faces(
             #     label["descriptors"], face, TOL_DISTANCE=TOL_DISTANCE)
 
@@ -96,22 +97,8 @@ def predict(img_enc, library):
 
             # customized weighted distance
             distances = face_distance(label["descriptors"], face)
-
-            matched = []
-            matched_distances = []
-            for d in distances:
-                if d < TOL_DISTANCE:
-                    matched.append(True)
-                    matched_distances.append(d)
-                else:
-                    matched.append(False)
-            if len(matched_distances) == 0:
-                continue
-            name = label["name"]
-
-            avg_dist = np.mean(matched_distances)
             real_avg_dist = np.mean(distances)
-            if avg_dist < TOL_DISTANCE:
+            if real_avg_dist < TOL_DISTANCE:
                 predict_names.append(
                     {'name': name,  "distance": real_avg_dist})
                 found = True
