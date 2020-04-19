@@ -9,7 +9,7 @@
 - Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Python dependencies
 
 ```bash
-pip install face_recognition numpy opencv-python argparse psycopg2 prettytable
+pip install face_recognition numpy opencv-python argparse psycopg2-binary prettytable
 ```
 
 Install Postgres

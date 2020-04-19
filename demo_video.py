@@ -1,3 +1,4 @@
+import argparse
 import face_recognition
 import cv2
 import numpy as np
@@ -66,9 +67,14 @@ def process_frame_buffer(frame_buffer):
 
 # ========== main ==========
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-i", "--input", help="Input video file with extension",required=True,  type=str)
+    args = parser.parse_args()
+    inputPath = args.input
 
     # Open the input movie file
-    input_movie = cv2.VideoCapture("video.mp4")
+    input_movie = cv2.VideoCapture(inputPath)
     length = int(input_movie.get(cv2.CAP_PROP_FRAME_COUNT))
     v_width = int(input_movie.get(cv2.CAP_PROP_FRAME_WIDTH))
     v_height = int(input_movie.get(cv2.CAP_PROP_FRAME_HEIGHT))

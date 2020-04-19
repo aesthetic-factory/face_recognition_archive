@@ -6,12 +6,15 @@ RUN apt-get update && apt-get install -y --fix-missing --no-install-recommends \
         build-essential \
         cmake \
         git-core \
-        software-properties-common
+        software-properties-common \
+        libsm6 \
+        libxext6 \
+        libxrender-dev
         
 
 # Install Python packages
 RUN pip3 install --upgrade setuptools
-RUN pip3 install face_recognition numpy opencv-python argparse psycopg2 prettytable
+RUN pip3 install face_recognition numpy opencv-python argparse psycopg2-binary prettytable Pillow
 
 # Clean up commands
 RUN apt-get autoremove -y && apt-get clean && \
@@ -21,7 +24,7 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Set working directory
-WORKDIR "/root"
+WORKDIR "/root/project"
 CMD ["/bin/bash"]
 
 # Sample commands to use docker
@@ -30,7 +33,7 @@ CMD ["/bin/bash"]
 # docker build -t face_recognition . --no-cache
 
 # Run a container
-# docker run -it --name faceRecognition -v ~/Dev/face_recognition:/root/project face_recognition
+# docker run -it --name faceRecognition -v $(pwd):/root/project face_recognition
 
 # Stop container
 # docker container stop faceRecognition
