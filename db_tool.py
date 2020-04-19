@@ -2,7 +2,7 @@ import argparse
 import face_recognition
 import numpy as np
 from prettytable import PrettyTable
-from database import insert_descriptor, insert_label, remove_descriptor, remove_label, fetch_descriptors, fetch_labels, clean_db, count_descriptors
+from database import insert_descriptor, insert_label, remove_descriptor, remove_label, fetch_descriptors, fetch_labels, clean_db, count_descriptors, fetch_evaluation_descriptors
 
 
 def summary():
